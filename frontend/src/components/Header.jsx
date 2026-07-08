@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { ShoppingCart, MessageCircle, Search, Trash2, Plus, Minus, X, Menu } from 'lucide-react';
 import { useCart } from '../context/CartContext';
@@ -11,6 +11,11 @@ export default function Header() {
   const [search, setSearch] = useState('');
   const [bounce, setBounce] = useState(false);
   const [showFloatingCart, setShowFloatingCart] = useState(false);
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [allProducts, setAllProducts] = useState([]);
+  const [activeIdx, setActiveIdx] = useState(-1);
+  const searchRef = useRef(null);
   
   const navigate = useNavigate();
   const location = useLocation();
@@ -38,8 +43,92 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Fetch all products once for suggestions
+  useEffect(() => {
+    const base = import.meta.env.VITE_API_BASE || '';
+    fetch(`${base}/api/items`)
+      .then(r => r.json())
+      .then(data => { if (data.status === 'success') setAllProducts(data.data); })
+      .catch(() => {});
+  }, []);
+
+  // Close suggestions on outside click
+  useEffect(() => {
+    const handleClick = (e) => {
+      if (searchRef.current && !searchRef.current.contains(e.target)) {
+        setShowSuggestions(false);
+        setActiveIdx(-1);
+      }
+    };
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, []);
+
+  // Filter suggestions as user types
+  const handleSearchChange = (e) => {
+    const val = e.target.value;
+    setSearch(val);
+    setActiveIdx(-1);
+    if (val.trim().length < 2) {
+      setSuggestions([]);
+      setShowSuggestions(false);
+      return;
+    }
+    const q = val.toLowerCase();
+    const matched = [];
+    const seen = new Set();
+    allProducts.forEach(p => {
+      // Match product name
+      if (p.name.toLowerCase().includes(q) && !seen.has(p.name)) {
+        seen.add(p.name);
+        matched.push({ type: 'product', label: p.name, category: p.category, brand: p.brand });
+      }
+      // Match brand
+      if (p.brand.toLowerCase().includes(q) && !seen.has('brand_' + p.brand)) {
+        seen.add('brand_' + p.brand);
+        matched.push({ type: 'brand', label: p.brand, category: p.category });
+      }
+      // Match category
+      if (p.category.toLowerCase().includes(q) && !seen.has('cat_' + p.category)) {
+        seen.add('cat_' + p.category);
+        matched.push({ type: 'category', label: p.category, category: p.category });
+      }
+    });
+    setSuggestions(matched.slice(0, 8));
+    setShowSuggestions(matched.length > 0);
+  };
+
+  const handleSuggestionClick = (s) => {
+    setShowSuggestions(false);
+    setSearch('');
+    if (s.type === 'category') {
+      navigate(`/products?category=${encodeURIComponent(s.category)}`);
+    } else if (s.type === 'brand') {
+      navigate(`/products?search=${encodeURIComponent(s.label)}`);
+    } else {
+      navigate(`/products?search=${encodeURIComponent(s.label)}`);
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (!showSuggestions) return;
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setActiveIdx(i => Math.min(i + 1, suggestions.length - 1));
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setActiveIdx(i => Math.max(i - 1, -1));
+    } else if (e.key === 'Enter' && activeIdx >= 0) {
+      e.preventDefault();
+      handleSuggestionClick(suggestions[activeIdx]);
+    } else if (e.key === 'Escape') {
+      setShowSuggestions(false);
+    }
+  };
+
   const handleSearch = (e) => {
     e.preventDefault();
+    setShowSuggestions(false);
     if (search.trim()) {
       navigate(`/products?search=${encodeURIComponent(search.trim())}`);
       setSearch('');
@@ -89,16 +178,40 @@ export default function Header() {
             </div>
           </Link>
 
-          {/* Search */}
-          <form className="hdr-search" onSubmit={handleSearch}>
-            <input
-              type="text"
-              placeholder="Search ACs, LED TVs, Fridges, Washing Machines..."
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-            />
-            <button type="submit"><Search size={18} /></button>
-          </form>
+          {/* Search with Autocomplete */}
+          <div className="hdr-search-wrap" ref={searchRef}>
+            <form className="hdr-search" onSubmit={handleSearch}>
+              <input
+                type="text"
+                placeholder="Search ACs, LED TVs, Fridges, Washing Machines..."
+                value={search}
+                onChange={handleSearchChange}
+                onKeyDown={handleKeyDown}
+                onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
+                autoComplete="off"
+              />
+              <button type="submit"><Search size={18} /></button>
+            </form>
+            {showSuggestions && (
+              <ul className="search-suggestions">
+                {suggestions.map((s, i) => (
+                  <li
+                    key={i}
+                    className={`suggestion-item${i === activeIdx ? ' active' : ''}`}
+                    onMouseDown={() => handleSuggestionClick(s)}
+                  >
+                    <span className="suggestion-icon">
+                      {s.type === 'category' ? '📂' : s.type === 'brand' ? '🏷️' : '🔍'}
+                    </span>
+                    <span className="suggestion-label">{s.label}</span>
+                    <span className="suggestion-type">
+                      {s.type === 'category' ? 'Category' : s.type === 'brand' ? 'Brand' : s.category}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
 
           {/* Actions */}
           <div className="hdr-actions">
