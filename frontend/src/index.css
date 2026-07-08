@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body, html {
+  font-family: 'Poppins', sans-serif;
+  background: #f4f6f9;
+  color: #1a1a2e;
+  font-size: 14px;
+  line-height: 1.5;
+  overflow-x: hidden;
+  max-width: 100%;
+}
+a { text-decoration: none; color: inherit; }
+button { font-family: 'Poppins', sans-serif; cursor: pointer; }
+img { max-width: 100%; height: auto; display: block; }
+ul, ol { list-style: none; }
+
+.container { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+
+.section-title { text-align: center; margin-bottom: 40px; }
+.section-title h2 { font-size: 22px; font-weight: 800; color: #0f2557; text-transform: uppercase; letter-spacing: 1px; }
+.section-title p { color: #64748b; font-size: 13px; margin-top: 8px; }
+.section-title .title-line { width: 50px; height: 3px; background: #f97316; margin: 10px auto 0; border-radius: 2px; }
+
+/* Buttons */
+.btn { display: inline-flex; align-items: center; gap: 6px; font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 700; padding: 10px 22px; border-radius: 5px; border: 2px solid transparent; cursor: pointer; text-decoration: none; transition: all 0.2s; letter-spacing: 0.3px; }
+.btn-navy { background: #0f2557; color: #fff; border-color: #0f2557; }
+.btn-navy:hover { background: #081740; border-color: #081740; }
+.btn-orange { background: #f97316; color: #fff; border-color: #f97316; }
+.btn-orange:hover { background: #ea580c; border-color: #ea580c; }
+.btn-green { background: #16a34a; color: #fff; border-color: #16a34a; }
+.btn-green:hover { background: #15803d; border-color: #15803d; }
+.btn-outline { background: transparent; color: #0f2557; border-color: #0f2557; }
+.btn-outline:hover { background: #0f2557; color: #fff; }
+.btn-sm { padding: 7px 14px; font-size: 12px; }
+
+/* Click feedback animations */
+.btn:active, 
+.add-btn:active, 
+.wa-btn:active,
+.m-add:active,
+.m-wa:active {
+  transform: scale(0.95);
+  transition: transform 0.05s;
+}
+
