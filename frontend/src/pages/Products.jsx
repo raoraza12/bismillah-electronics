@@ -31,7 +31,7 @@ export default function Products() {
   }, [location.search]);
 
   useEffect(() => {
-    const base = import.meta.env.VITE_API_BASE || '';
+    const base = import.meta.env.VITE_API_BASE || 'https://bismillah-electronics-gold.vercel.app';
     fetch(`${base}/api/items`)
       .then(r => r.json())
       .then(data => {

@@ -76,7 +76,7 @@
   flex-shrink: 0;
 }
 .hdr-logo-text { line-height: 1.2; }
-.hdr-logo-text strong { display: block; font-size: 20px; font-weight: 800; color: #0f2557; }
+.hdr-logo-text strong { display: block; font-size: 16px; font-weight: 800; color: #0f2557; white-space: nowrap; }
 .hdr-logo-text span { display: block; font-size: 10px; color: #64748b; text-transform: uppercase; letter-spacing: 1px; }
 
 /* ── Search ── */

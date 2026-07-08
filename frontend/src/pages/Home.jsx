@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ShoppingCart, MessageCircle, ArrowRight } from 'lucide-react';
+import { ShoppingCart, MessageCircle, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import './Home.css';
 
@@ -28,24 +28,24 @@ export default function Home() {
   const invBill = Math.round(0.8 * factor * dailyHours * 30 * unitRate);
   const saving  = nonBill - invBill;
 
-  // Carousel state
+  // Hero carousel
   const [currentSlide, setCurrentSlide] = useState(0);
   const heroSlides = [
-    { image: '/images/product_ac.png', alt: 'Premium Air Conditioner' },
-    { image: '/images/product_fridge_2.png', alt: 'Smart Refrigerator' },
-    { image: '/images/product_tv.png', alt: '4K Smart LED TV' },
-    { image: '/images/product_washer_2.png', alt: 'Automatic Washing Machine' }
+    { image: '/images/product_ac.png',      label: 'DC Inverter ACs',       offer: 'Up to 15% OFF',  color: '#0f2557' },
+    { image: '/images/product_fridge_2.png', label: 'No-Frost Refrigerators', offer: 'Up to 10% OFF', color: '#0d5c2f' },
+    { image: '/images/product_tv.png',       label: '4K Smart LED TVs',      offer: 'Up to 12% OFF',  color: '#7c1c1c' },
+    { image: '/images/product_washer_2.png', label: 'Auto Washing Machines', offer: 'Free Delivery',   color: '#4a1f7a' },
   ];
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide(prev => (prev + 1) % heroSlides.length);
-    }, 3500);
+    }, 3800);
     return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
-    const base = import.meta.env.VITE_API_BASE || '';
+    const base = import.meta.env.VITE_API_BASE || 'https://bismillah-electronics-gold.vercel.app';
     fetch(`${base}/api/items`)
       .then(r => r.json())
       .then(data => { if (data.status === 'success') setProducts(data.data); setLoading(false); })
@@ -53,14 +53,14 @@ export default function Home() {
   }, []);
 
   const categories = [
-    { icon: '❄️', name: 'Air Conditioners', desc: 'DC Inverter & Non-Inverter', cat: 'Air Conditioner' },
-    { icon: '📺', name: 'LED TVs',           desc: 'Smart 4K & HD Displays',    cat: 'LED TV'          },
-    { icon: '🧊', name: 'Refrigerators',     desc: 'No-Frost & Direct Cool',    cat: 'Refrigerator'    },
-    { icon: '🧺', name: 'Washing Machines',  desc: 'Front Load & Top Load',     cat: 'Washing Machine' },
-    { icon: '🍳', name: 'Kitchen App.',      desc: 'Air Fryers & Blenders',     cat: 'Kitchen Appliances' },
-    { icon: '🍲', name: 'Microwaves',        desc: 'Solo & Grill Ovens',        cat: 'Microwave Oven' },
-    { icon: '🚰', name: 'Water Dispenser',   desc: 'Hot & Cold Filters',        cat: 'Water Dispenser' },
-    { icon: '🥶', name: 'Deep Freezer',      desc: 'Chest Freezers & Coolers',  cat: 'Deep Freezer' },
+    { img: '/images/cat_ac.png',        name: 'Air Conditioners', desc: 'DC Inverter & Non-Inverter', cat: 'Air Conditioner' },
+    { img: '/images/cat_tv.png',        name: 'LED TVs',           desc: 'Smart 4K & HD Displays',    cat: 'LED TV'          },
+    { img: '/images/cat_fridge.png',    name: 'Refrigerators',     desc: 'No-Frost & Direct Cool',    cat: 'Refrigerator'    },
+    { img: '/images/cat_washer.png',    name: 'Washing Machines',  desc: 'Front Load & Top Load',     cat: 'Washing Machine' },
+    { img: '/images/cat_kitchen.png',   name: 'Kitchen App.',      desc: 'Air Fryers & Blenders',     cat: 'Kitchen Appliances' },
+    { img: '/images/cat_microwave.png', name: 'Microwaves',        desc: 'Solo & Grill Ovens',        cat: 'Microwave Oven' },
+    { img: '/images/product_dispenser.png', name: 'Water Dispensers', desc: 'Hot & Cold Filters',    cat: 'Water Dispenser' },
+    { img: '/images/product_freezer.png',   name: 'Deep Freezers',    desc: 'Chest Freezers & Coolers', cat: 'Deep Freezer' },
   ];
 
   const whyUs = [
@@ -70,40 +70,77 @@ export default function Home() {
     { icon: '📞', title: '24/7 Support',        desc: 'Call or WhatsApp us anytime — our team is always ready to assist you' },
   ];
 
+  // Hot items by category
+  const hotCategories = ['Air Conditioner', 'LED TV', 'Refrigerator', 'Microwave Oven'];
+  const hotItems = hotCategories.map(cat => products.find(p => p.category === cat)).filter(Boolean);
+
   return (
     <div>
-      {/* ── Hero ── */}
-      <section className="hero-section">
-        <div className="hero-grid">
-          <div className="hero-content">
-            <div className="hero-badge">⭐ Best Electronics Retailer in Karachi</div>
-            <h1>Premium Home<br /><span>Appliances</span> at<br />Best Prices</h1>
-            <p>
-              Authorized dealer for Haier, Gree, Dawlance &amp; Kenwood. Genuine products
-              with warranty, free installation, and doorstep delivery across Karachi.
-            </p>
-            <div className="hero-btns">
-              <Link to="/products" className="btn btn-orange">
-                Shop Now <ArrowRight size={16} />
-              </Link>
-              <a
-                href="https://wa.me/923001234567"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-green"
-              >
-                <MessageCircle size={16} /> WhatsApp Us
-              </a>
+      {/* ── Scrolling Offer Ticker ── */}
+      <div className="offer-ticker">
+        <div className="ticker-track">
+          {[
+            '🎉 Flat 10% Off Sitewide',
+            '🚚 Free Delivery on Orders Rs.80,000 & Above',
+            '⭐ Welcome to Bismillah Electronics',
+            '✅ Authorized Dealer of Haier',
+            '✅ Authorized Dealer of Gree',
+            '✅ Authorized Dealer of Dawlance',
+            '🎉 Flat 10% Off Sitewide',
+            '🚚 Free Delivery on Orders Rs.80,000 & Above',
+            '⭐ Welcome to Bismillah Electronics',
+            '✅ Authorized Dealer of Kenwood',
+            '💰 Up to 15% Off on Inverter ACs',
+            '📞 WhatsApp Order Available',
+          ].map((t, i) => (
+            <span key={i} className="ticker-item">{t}</span>
+          ))}
+        </div>
+      </div>
+
+      {/* ── Compact Hero Carousel ── */}
+      <section className="hero-compact">
+        {heroSlides.map((slide, idx) => (
+          <div
+            key={idx}
+            className={`hero-slide-compact${idx === currentSlide ? ' active' : ''}`}
+            style={{ '--hero-bg': slide.color }}
+          >
+            <div className="hero-slide-inner">
+              <div className="hero-slide-text">
+                <div className="hero-offer-pill">🔥 {slide.offer}</div>
+                <h2>Bismillah Electronics</h2>
+                <p>{slide.label} — Best Prices in Karachi</p>
+                <div className="hero-slide-btns">
+                  <Link to="/products" className="btn btn-orange">Shop Now <ArrowRight size={15}/></Link>
+                  <a href="https://wa.me/923001234567" target="_blank" rel="noopener noreferrer" className="btn btn-white-outline">
+                    <MessageCircle size={15}/> WhatsApp
+                  </a>
+                </div>
+              </div>
+              <div className="hero-slide-img">
+                <img src={slide.image} alt={slide.label} />
+              </div>
             </div>
           </div>
-          <div className="hero-img">
-            {heroSlides.map((slide, idx) => (
-              <div key={idx} className={`hero-slide${idx === currentSlide ? ' active' : ''}`}>
-                <img src={slide.image} alt={slide.alt} />
-              </div>
-            ))}
-          </div>
+        ))}
+        {/* Dots */}
+        <div className="hero-dots">
+          {heroSlides.map((_, i) => (
+            <button
+              key={i}
+              className={`hero-dot${i === currentSlide ? ' active' : ''}`}
+              onClick={() => setCurrentSlide(i)}
+            />
+          ))}
         </div>
+        {/* Arrows */}
+        <button className="hero-arrow left" onClick={() => setCurrentSlide(p => (p - 1 + heroSlides.length) % heroSlides.length)}>
+          <ChevronLeft size={22}/>
+        </button>
+        <button className="hero-arrow right" onClick={() => setCurrentSlide(p => (p + 1) % heroSlides.length)}>
+          <ChevronRight size={22}/>
+        </button>
       </section>
 
       {/* ── Stats Strip ── */}
@@ -112,11 +149,11 @@ export default function Home() {
           <div className="stat-block"><strong>10,000+</strong><span>Happy Customers</span></div>
           <div className="stat-block"><strong>15+ Years</strong><span>In Business</span></div>
           <div className="stat-block"><strong>500+</strong><span>Products</span></div>
-          <div className="stat-block"><strong>2 Branches</strong><span>Saddar &amp; DHA</span></div>
+          <div className="stat-block"><strong>2 Branches</strong><span>Saddar & DHA</span></div>
         </div>
       </div>
 
-      {/* ── Categories ── */}
+      {/* ── Shop by Category ── */}
       <section className="cats-section">
         <div className="container">
           <div className="section-title">
@@ -127,7 +164,9 @@ export default function Home() {
           <div className="cats-grid">
             {categories.map(c => (
               <Link key={c.cat} to={`/products?category=${encodeURIComponent(c.cat)}`} className="cat-card">
-                <div className="cat-icon">{c.icon}</div>
+                <div className="cat-img-wrap">
+                  <img src={c.img} alt={c.name} />
+                </div>
                 <h3>{c.name}</h3>
                 <p>{c.desc}</p>
               </Link>
@@ -136,25 +175,76 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── Hot Items ── */}
+      {hotItems.length > 0 && (
+        <section className="hot-section">
+          <div className="container">
+            <div className="section-title">
+              <h2>🔥 Hot Items</h2>
+              <div className="title-line"></div>
+              <p>Top-selling appliances at unbeatable prices</p>
+            </div>
+            <div className="hot-grid">
+              {hotItems.map(p => {
+                const price = p.discountPrice || p.price;
+                const pct = p.discountPrice ? Math.round((1 - p.discountPrice / p.price) * 100) : 0;
+                return (
+                  <div key={p.id} className="hot-card" onClick={() => navigate('/products')}>
+                    {pct > 0 && <div className="hot-badge">{pct}% OFF</div>}
+                    <div className="hot-img">
+                      <img src={p.image} alt={p.name} />
+                    </div>
+                    <div className="hot-info">
+                      <div className="hot-brand">{p.brand}</div>
+                      <div className="hot-name">{p.name}</div>
+                      <div className="hot-price">
+                        <span className="hot-now">Rs. {price.toLocaleString()}</span>
+                        {p.discountPrice && <span className="hot-was">Rs. {p.price.toLocaleString()}</span>}
+                      </div>
+                      <div className="hot-actions">
+                        <button className="btn btn-sm btn-navy" onClick={e => { e.stopPropagation(); handleAddToCart(p); }}>
+                          {addedProductId === p.id ? '✓ Added' : <><ShoppingCart size={13}/> Add to Cart</>}
+                        </button>
+                        <a
+                          href={`https://wa.me/923001234567?text=I want to order: ${encodeURIComponent(p.name)} — Rs.${price.toLocaleString()}`}
+                          target="_blank" rel="noopener noreferrer"
+                          className="btn btn-green btn-sm"
+                          onClick={e => e.stopPropagation()}
+                        >
+                          <MessageCircle size={13}/> Order
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            <div style={{ textAlign: 'center', marginTop: '32px' }}>
+              <Link to="/products" className="btn btn-outline">View All Products <ArrowRight size={16}/></Link>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* ── Featured Products ── */}
       <section className="featured-section">
         <div className="container">
           <div className="section-title">
             <h2>Featured Products</h2>
             <div className="title-line"></div>
-            <p>Top-selling appliances at unbeatable prices</p>
+            <p>Hand-picked appliances from top brands</p>
           </div>
-
           {loading ? (
             <p style={{ textAlign: 'center', color: '#64748b', padding: '40px 0' }}>Loading products...</p>
           ) : (
             <div className="prod-grid">
-              {products.map(p => {
+              {products.slice(0, 8).map(p => {
                 const price = p.discountPrice || p.price;
                 const saved = p.discountPrice ? p.price - p.discountPrice : 0;
+                const pct   = p.discountPrice ? Math.round((1 - p.discountPrice / p.price) * 100) : 0;
                 return (
                   <div key={p.id} className="prod-card">
-                    {saved > 0 && <span className="prod-sale-badge">SAVE Rs.{saved.toLocaleString()}</span>}
+                    {pct > 0 && <span className="prod-sale-badge">{pct}% OFF</span>}
                     <div className="prod-img-box" onClick={() => navigate('/products')}>
                       <img src={p.image} alt={p.name} />
                     </div>
@@ -166,19 +256,18 @@ export default function Home() {
                         {p.discountPrice && <span className="prod-price-was">Rs. {p.price.toLocaleString()}</span>}
                       </div>
                       <div className="prod-action-row">
-                        <button 
-                          className={`btn btn-sm ${addedProductId === p.id ? 'btn-green' : 'btn-navy'}`} 
+                        <button
+                          className={`btn btn-sm ${addedProductId === p.id ? 'btn-green' : 'btn-navy'}`}
                           onClick={() => handleAddToCart(p)}
                         >
-                          {addedProductId === p.id ? '✓ Added' : <><ShoppingCart size={13} /> Add</>}
+                          {addedProductId === p.id ? '✓ Added' : <><ShoppingCart size={13}/> Add</>}
                         </button>
                         <a
                           href={`https://wa.me/923001234567?text=I want to order: ${encodeURIComponent(p.name)} — Rs.${price.toLocaleString()}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                          target="_blank" rel="noopener noreferrer"
                           className="btn btn-green btn-sm"
                         >
-                          <MessageCircle size={13} /> Order
+                          <MessageCircle size={13}/> Order
                         </a>
                       </div>
                     </div>
@@ -187,11 +276,8 @@ export default function Home() {
               })}
             </div>
           )}
-
           <div style={{ textAlign: 'center', marginTop: '36px' }}>
-            <Link to="/products" className="btn btn-outline">
-              View All Products <ArrowRight size={16} />
-            </Link>
+            <Link to="/products" className="btn btn-outline">View All Products <ArrowRight size={16}/></Link>
           </div>
         </div>
       </section>
@@ -245,7 +331,7 @@ export default function Home() {
       <section className="why-section">
         <div className="container">
           <div className="section-title">
-            <h2>Why Choose BisElec?</h2>
+            <h2>Why Choose Bismillah Electronics?</h2>
             <div className="title-line"></div>
           </div>
           <div className="why-grid">
