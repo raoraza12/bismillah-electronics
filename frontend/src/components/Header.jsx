@@ -170,14 +170,13 @@ export default function Header() {
 
       {/* ─── Main Header ─── */}
       <header className="site-header">
-        {/* Logo + Search + Actions row */}
         <div className="header-main-row">
           {/* Mobile hamburger menu toggle */}
           <button className="hdr-mobile-menu-btn" onClick={() => setMobileMenuOpen(true)}>
             <Menu size={24} />
           </button>
 
-          {/* Logo */}
+          {/* Logo (Left) */}
           <Link to="/" className="hdr-logo">
             <div className="hdr-logo-icon">⚡</div>
             <div className="hdr-logo-text">
@@ -186,73 +185,15 @@ export default function Header() {
             </div>
           </Link>
 
-          {/* Search with Autocomplete */}
-          <div className="hdr-search-wrap" ref={searchRef}>
-            <form className="hdr-search" onSubmit={handleSearch}>
-              <input
-                type="text"
-                placeholder="Search ACs, LED TVs, Fridges, Washing Machines..."
-                value={search}
-                onChange={handleSearchChange}
-                onKeyDown={handleKeyDown}
-                onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
-                autoComplete="off"
-              />
-              <button type="submit"><Search size={18} /></button>
-            </form>
-            {showSuggestions && (
-              <ul className="search-suggestions">
-                {suggestions.map((s, i) => (
-                  <li
-                    key={i}
-                    className={`suggestion-item${i === activeIdx ? ' active' : ''}`}
-                    onMouseDown={() => handleSuggestionClick(s)}
-                  >
-                    <span className="suggestion-icon">
-                      {s.type === 'category' ? '📂' : s.type === 'brand' ? '🏷️' : '🔍'}
-                    </span>
-                    <span className="suggestion-label">{s.label}</span>
-                    <span className="suggestion-type">
-                      {s.type === 'category' ? 'Category' : s.type === 'brand' ? 'Brand' : s.category}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-
-          {/* Actions */}
-          <div className="hdr-actions">
-            <button className="hdr-cart-btn" onClick={() => setCartOpen(true)}>
-              <div style={{ position: 'relative', display: 'inline-flex' }} className={bounce ? 'cart-bounce' : ''}>
-                <ShoppingCart size={24} />
-                {cartCount > 0 && <span className="hdr-cart-badge">{cartCount}</span>}
-              </div>
-              <span>Cart</span>
-            </button>
-
-            <a
-              href="https://wa.me/923001234567?text=Hello%20BisElec!%20I%20need%20help"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hdr-wa-btn"
-            >
-              <MessageCircle size={17} /> WhatsApp Order
-            </a>
-          </div>
-        </div>
-
-        {/* Desktop Navigation */}
-        <nav className="hdr-nav">
-          <div className="hdr-nav-inner">
-            <ul className="hdr-nav-list">
+          {/* Desktop Navigation (Middle) */}
+          <nav className="hdr-nav-inline">
+            <ul className="hdr-nav-list-inline">
               <li><Link to="/" className={isActive('/')}>Home</Link></li>
-              {/* All Products Dropdown */}
-              <li className="hdr-nav-dropdown">
-                <Link to="/products" className={`dropdown-trigger-link ${isActive('/products')}`}>
-                  All Products ▾
+              <li className="hdr-nav-dropdown-inline">
+                <Link to="/products" className={`dropdown-trigger-link-inline ${isActive('/products')}`}>
+                  Products ▾
                 </Link>
-                <ul className="dropdown-menu">
+                <ul className="dropdown-menu-inline">
                   <li><Link to="/products?category=Air%20Conditioner">❄️ Air Conditioners</Link></li>
                   <li><Link to="/products?category=LED%20TV">📺 LED TVs</Link></li>
                   <li><Link to="/products?category=Refrigerator">🧊 Refrigerators</Link></li>
@@ -263,12 +204,70 @@ export default function Header() {
                   <li><Link to="/products?category=Deep%20Freezer">🥶 Deep Freezers</Link></li>
                 </ul>
               </li>
-
               <li><Link to="/about" className={isActive('/about')}>About</Link></li>
               <li><Link to="/contact" className={isActive('/contact')}>Contact</Link></li>
             </ul>
+          </nav>
+
+          {/* Search & Actions Group (Right) */}
+          <div className="hdr-right-group">
+            {/* Search with Autocomplete */}
+            <div className="hdr-search-wrap" ref={searchRef}>
+              <form className="hdr-search" onSubmit={handleSearch}>
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  value={search}
+                  onChange={handleSearchChange}
+                  onKeyDown={handleKeyDown}
+                  onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
+                  autoComplete="off"
+                />
+                <button type="submit"><Search size={16} /></button>
+              </form>
+              {showSuggestions && (
+                <ul className="search-suggestions">
+                  {suggestions.map((s, i) => (
+                    <li
+                      key={i}
+                      className={`suggestion-item${i === activeIdx ? ' active' : ''}`}
+                      onMouseDown={() => handleSuggestionClick(s)}
+                    >
+                      <span className="suggestion-icon">
+                        {s.type === 'category' ? '📂' : s.type === 'brand' ? '🏷️' : '🔍'}
+                      </span>
+                      <span className="suggestion-label">{s.label}</span>
+                      <span className="suggestion-type">
+                        {s.type === 'category' ? 'Category' : s.type === 'brand' ? 'Brand' : s.category}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+
+            {/* Cart Icon Button */}
+            <button className="hdr-cart-btn-compact" onClick={() => setCartOpen(true)} title="View Cart">
+              <div className={`cart-icon-container-compact ${bounce ? 'cart-bounce' : ''}`}>
+                <ShoppingCart size={22} />
+                {cartCount > 0 && <span className="hdr-cart-badge-compact">{cartCount}</span>}
+              </div>
+              <span className="hdr-cart-text-compact">Cart</span>
+            </button>
+
+            {/* WhatsApp Order Button */}
+            <a
+              href="https://wa.me/923001234567?text=Hello%20Bismillah%20Electronics!%20I%20need%20assistance."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hdr-wa-btn-compact"
+              title="Order on WhatsApp"
+            >
+              <MessageCircle size={15} />
+              <span>WhatsApp</span>
+            </a>
           </div>
-        </nav>
+        </div>
       </header>
 
       {/* ─── Mobile Menu Drawer ─── */}

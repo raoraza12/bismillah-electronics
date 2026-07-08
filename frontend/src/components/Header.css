@@ -232,43 +232,176 @@
 }
 .hdr-wa-btn:hover { background-color: #15803d; }
 
-/* ── 3. Navigation ── */
-.hdr-nav {
-  background-color: #0f2557;
-}
-.hdr-nav-inner {
+/* ── 3. Inline Middle Navigation ── */
+.hdr-nav-inline {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  max-width: 1280px;
   margin: 0 auto;
-  padding: 0 20px;
 }
-.hdr-nav-list {
+.hdr-nav-list-inline {
   display: flex;
+  align-items: center;
   list-style: none;
-  margin: 0 auto;
+  margin: 0;
   padding: 0;
-  justify-content: center;
+  gap: 8px;
 }
-.hdr-nav-list li { display: block; }
-.hdr-nav-list li a {
+.hdr-nav-list-inline li {
+  position: relative;
+}
+.hdr-nav-list-inline li a {
   display: block;
-  color: #e2e8f0;
-  font-size: 13px;
-  font-weight: 600;
-  padding: 13px 18px;
+  color: #1e293b;
+  font-size: 13.5px;
+  font-weight: 700;
+  padding: 8px 14px;
+  border-radius: 6px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   text-decoration: none;
   transition: all 0.2s;
   white-space: nowrap;
 }
-.hdr-nav-list li a:hover,
-.hdr-nav-list li a.nav-active {
+.hdr-nav-list-inline li a:hover,
+.hdr-nav-list-inline li a.nav-active {
   color: #f97316;
-  background-color: rgba(255,255,255,0.06);
+  background-color: #f1f5f9;
+}
+
+/* Inline Dropdown */
+.hdr-nav-dropdown-inline {
+  position: relative;
+}
+.dropdown-menu-inline {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  min-width: 200px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  padding: 6px 0;
+  margin-top: 6px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.22s ease;
+  z-index: 999;
+}
+.hdr-nav-dropdown-inline:hover .dropdown-menu-inline {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+.dropdown-menu-inline li {
+  width: 100%;
+}
+.dropdown-menu-inline a {
+  display: block !important;
+  padding: 9px 16px !important;
+  font-size: 12.5px !important;
+  font-weight: 600 !important;
+  color: #1a1a2e !important;
+  text-transform: none !important;
+  border-radius: 0 !important;
+  background-color: transparent !important;
+}
+.dropdown-menu-inline a:hover {
+  background-color: #f8fafc !important;
+  color: #f97316 !important;
+}
+
+/* ── 4. Compact Right Action Group ── */
+.hdr-right-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.hdr-search-wrap {
+  width: 170px;
+  position: relative;
+  transition: width 0.25s;
+}
+.hdr-search-wrap:focus-within {
+  width: 230px;
+}
+.hdr-search {
+  border: 2.5px solid #e2e8f0;
+}
+.hdr-search input {
+  padding: 8px 12px;
+  font-size: 13px;
+}
+.hdr-search button {
+  padding: 0 14px;
+}
+.hdr-cart-btn-compact {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #f1f5f9;
+  border: none;
+  color: #0f2557;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: all 0.2s;
+  font-family: 'Poppins', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.hdr-cart-btn-compact:hover {
+  background: #e2e8f0;
+  color: #f97316;
+}
+.cart-icon-container-compact {
+  position: relative;
+  display: inline-flex;
+}
+.hdr-cart-badge-compact {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  background-color: #f97316;
+  color: #ffffff;
+  font-size: 9px;
+  font-weight: 800;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+.hdr-wa-btn-compact {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #16a34a;
+  color: #ffffff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.hdr-wa-btn-compact:hover {
+  background-color: #15803d;
 }
 
 /* ── 4. Cart Drawer ── */
@@ -544,17 +677,41 @@
 }
 
 /* ── Mobile Responsive Queries ── */
-@media (max-width: 900px) {
-  .hdr-wa-btn { display: none; }
-  .topbar-left { display: none; }
-}
-
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
+  .hdr-nav-inline {
+    display: none;
+  }
   .hdr-mobile-menu-btn {
     display: flex;
   }
-  .hdr-nav {
+}
+
+@media (max-width: 768px) {
+  .hdr-cart-text-compact {
     display: none;
+  }
+  .hdr-wa-btn-compact span {
+    display: none;
+  }
+  .hdr-wa-btn-compact {
+    padding: 8px;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    justify-content: center;
+  }
+  .hdr-cart-btn-compact {
+    padding: 8px;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    justify-content: center;
+  }
+  .hdr-search-wrap {
+    width: 140px;
+  }
+  .hdr-search-wrap:focus-within {
+    width: 170px;
   }
 }
 
@@ -563,12 +720,16 @@
   .header-main-row {
     flex-wrap: wrap;
     gap: 12px;
-    padding: 12px 16px;
+    padding: 10px 16px;
   }
-  .hdr-search {
+  .hdr-right-group {
+    margin-left: auto;
+    gap: 8px;
+  }
+  .hdr-search-wrap {
     order: 3; /* Push search bar below logo and actions */
-    width: 100%;
-    flex: none;
+    width: 100% !important;
+    max-width: 100%;
   }
 }
 
