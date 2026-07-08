@@ -31,7 +31,8 @@ export default function Products() {
   }, [location.search]);
 
   useEffect(() => {
-    fetch('/api/items')
+    const base = import.meta.env.VITE_API_BASE || '';
+    fetch(`${base}/api/items`)
       .then(r => r.json())
       .then(data => {
         if (data.status === 'success') setAllProducts(data.data);
