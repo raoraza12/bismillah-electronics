@@ -175,52 +175,35 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Hot Items ── */}
+      {/* ── Flash Deals Horizontal Scroll Strip ── */}
       {hotItems.length > 0 && (
-        <section className="hot-section">
-          <div className="container">
-            <div className="section-title">
-              <h2>🔥 Hot Items</h2>
-              <div className="title-line"></div>
-              <p>Top-selling appliances at unbeatable prices</p>
+        <section className="flash-strip">
+          <div className="flash-strip-inner">
+            <div className="flash-strip-header">
+              <h3>🔥 Flash Deals / Hot Items</h3>
+              <Link to="/products">View All Deals</Link>
             </div>
-            <div className="hot-grid">
+            <div className="flash-scroll">
               {hotItems.map(p => {
                 const price = p.discountPrice || p.price;
                 const pct = p.discountPrice ? Math.round((1 - p.discountPrice / p.price) * 100) : 0;
                 return (
-                  <div key={p.id} className="hot-card" onClick={() => navigate('/products')}>
-                    {pct > 0 && <div className="hot-badge">{pct}% OFF</div>}
-                    <div className="hot-img">
+                  <div key={p.id} className="flash-item" onClick={() => navigate('/products')}>
+                    {pct > 0 && <span className="flash-pct-badge">{pct}% OFF</span>}
+                    <div className="flash-img">
                       <img src={p.image} alt={p.name} />
                     </div>
-                    <div className="hot-info">
-                      <div className="hot-brand">{p.brand}</div>
-                      <div className="hot-name">{p.name}</div>
-                      <div className="hot-price">
-                        <span className="hot-now">Rs. {price.toLocaleString()}</span>
-                        {p.discountPrice && <span className="hot-was">Rs. {p.price.toLocaleString()}</span>}
-                      </div>
-                      <div className="hot-actions">
-                        <button className="btn btn-sm btn-navy" onClick={e => { e.stopPropagation(); handleAddToCart(p); }}>
-                          {addedProductId === p.id ? '✓ Added' : <><ShoppingCart size={13}/> Add to Cart</>}
-                        </button>
-                        <a
-                          href={`https://wa.me/923001234567?text=I want to order: ${encodeURIComponent(p.name)} — Rs.${price.toLocaleString()}`}
-                          target="_blank" rel="noopener noreferrer"
-                          className="btn btn-green btn-sm"
-                          onClick={e => e.stopPropagation()}
-                        >
-                          <MessageCircle size={13}/> Order
-                        </a>
+                    <div className="flash-info">
+                      <div className="flash-brand">{p.brand}</div>
+                      <div className="flash-name">{p.name}</div>
+                      <div className="flash-prices">
+                        <span className="flash-now">Rs. {price.toLocaleString()}</span>
+                        {p.discountPrice && <span className="flash-was">Rs. {p.price.toLocaleString()}</span>}
                       </div>
                     </div>
                   </div>
                 );
               })}
-            </div>
-            <div style={{ textAlign: 'center', marginTop: '32px' }}>
-              <Link to="/products" className="btn btn-outline">View All Products <ArrowRight size={16}/></Link>
             </div>
           </div>
         </section>
