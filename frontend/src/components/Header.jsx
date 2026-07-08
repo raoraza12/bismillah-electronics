@@ -146,17 +146,25 @@ export default function Header() {
 
   return (
     <>
-      {/* ─── Top Bar ─── */}
-      <div className="topbar">
-        <div className="topbar-inner">
-          <div className="topbar-left">
-            <span className="topbar-item">📢 Authorized Dealer — Haier · Gree · Dawlance · Kenwood</span>
-            <span className="topbar-item">🚚 Free Delivery on orders over Rs.80,000</span>
-          </div>
-          <div className="topbar-right">
-            <a href="tel:+923001234567" className="topbar-item">📞 +92 300 1234567</a>
-            <span className="topbar-item">📍 Saddar &amp; DHA Karachi</span>
-          </div>
+      {/* ─── Scrolling Offer Ticker (Absolute Top) ─── */}
+      <div className="offer-ticker">
+        <div className="ticker-track">
+          {[
+            '🎉 Flat 10% Off Sitewide.',
+            '🚚 Free Delivery on Orders Rs.80,000 & Above.',
+            '⭐ Welcome to Bismillah Electronics.',
+            '✅ Authorized Dealer of Haier.',
+            '✅ Authorized Dealer of Gree.',
+            '✅ Authorized Dealer of Dawlance.',
+            '🎉 Flat 10% Off Sitewide.',
+            '🚚 Free Delivery on Orders Rs.80,000 & Above.',
+            '⭐ Welcome to Bismillah Electronics.',
+            '✅ Authorized Dealer of Kenwood.',
+            '💰 Up to 15% Off on Inverter ACs.',
+            '📞 WhatsApp Order: +92 300 1234567.',
+          ].map((t, i) => (
+            <span key={i} className="ticker-item">{t}</span>
+          ))}
         </div>
       </div>
 

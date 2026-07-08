@@ -76,28 +76,6 @@ export default function Home() {
 
   return (
     <div>
-      {/* ── Scrolling Offer Ticker ── */}
-      <div className="offer-ticker">
-        <div className="ticker-track">
-          {[
-            '🎉 Flat 10% Off Sitewide',
-            '🚚 Free Delivery on Orders Rs.80,000 & Above',
-            '⭐ Welcome to Bismillah Electronics',
-            '✅ Authorized Dealer of Haier',
-            '✅ Authorized Dealer of Gree',
-            '✅ Authorized Dealer of Dawlance',
-            '🎉 Flat 10% Off Sitewide',
-            '🚚 Free Delivery on Orders Rs.80,000 & Above',
-            '⭐ Welcome to Bismillah Electronics',
-            '✅ Authorized Dealer of Kenwood',
-            '💰 Up to 15% Off on Inverter ACs',
-            '📞 WhatsApp Order Available',
-          ].map((t, i) => (
-            <span key={i} className="ticker-item">{t}</span>
-          ))}
-        </div>
-      </div>
-
       {/* ── Compact Hero Carousel ── */}
       <section className="hero-compact">
         {heroSlides.map((slide, idx) => (
@@ -143,38 +121,6 @@ export default function Home() {
         </button>
       </section>
 
-      {/* ── Stats Strip ── */}
-      <div className="stats-strip">
-        <div className="stats-strip-inner">
-          <div className="stat-block"><strong>10,000+</strong><span>Happy Customers</span></div>
-          <div className="stat-block"><strong>15+ Years</strong><span>In Business</span></div>
-          <div className="stat-block"><strong>500+</strong><span>Products</span></div>
-          <div className="stat-block"><strong>2 Branches</strong><span>Saddar & DHA</span></div>
-        </div>
-      </div>
-
-      {/* ── Shop by Category ── */}
-      <section className="cats-section">
-        <div className="container">
-          <div className="section-title">
-            <h2>Shop by Category</h2>
-            <div className="title-line"></div>
-            <p>Browse our wide selection of home appliances from top brands</p>
-          </div>
-          <div className="cats-grid">
-            {categories.map(c => (
-              <Link key={c.cat} to={`/products?category=${encodeURIComponent(c.cat)}`} className="cat-card">
-                <div className="cat-img-wrap">
-                  <img src={c.img} alt={c.name} />
-                </div>
-                <h3>{c.name}</h3>
-                <p>{c.desc}</p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ── Flash Deals Horizontal Scroll Strip ── */}
       {hotItems.length > 0 && (
         <section className="flash-strip">
@@ -208,6 +154,28 @@ export default function Home() {
           </div>
         </section>
       )}
+
+      {/* ── Shop by Category ── */}
+      <section className="cats-section">
+        <div className="container">
+          <div className="section-title">
+            <h2>Shop by Category</h2>
+            <div className="title-line"></div>
+            <p>Browse our wide selection of home appliances from top brands</p>
+          </div>
+          <div className="cats-grid">
+            {categories.map(c => (
+              <Link key={c.cat} to={`/products?category=${encodeURIComponent(c.cat)}`} className="cat-card">
+                <div className="cat-img-wrap">
+                  <img src={c.img} alt={c.name} />
+                </div>
+                <h3>{c.name}</h3>
+                <p>{c.desc}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* ── Featured Products ── */}
       <section className="featured-section">

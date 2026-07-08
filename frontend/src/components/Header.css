@@ -2,38 +2,31 @@
    HEADER — BisElec Electronics
    ======================================== */
 
-/* ── 1. Top Bar ── */
-.topbar {
-  background-color: #081740;
+/* ── 1. Offer Ticker (Absolute Top) ── */
+.offer-ticker {
+  background: #1e40af; /* Vibrant royal blue */
+  color: #ffffff;
+  overflow: hidden;
+  white-space: nowrap;
   padding: 8px 0;
-  font-size: 12px;
-  color: #94a3b8;
+  font-size: 13px;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
 }
-.topbar-inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 20px;
+.ticker-track {
+  display: inline-flex;
+  animation: ticker-scroll 32s linear infinite;
 }
-.topbar-left {
-  display: flex;
-  align-items: center;
-  gap: 20px;
+.ticker-item {
+  padding: 0 40px;
+  border-right: 1px solid rgba(255,255,255,0.25);
+  color: #ffffff;
+  letter-spacing: 0.3px;
 }
-.topbar-right {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-.topbar a { color: #94a3b8; }
-.topbar a:hover { color: #f97316; }
-.topbar-item {
-  display: flex;
-  align-items: center;
-  gap: 5px;
+.ticker-item:last-child { border-right: none; }
+@keyframes ticker-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 /* ── 2. Main Header ── */
