@@ -72,79 +72,174 @@ export default function Home() {
 
   // Hot items by category
   const hotCategories = ['Air Conditioner', 'LED TV', 'Refrigerator', 'Microwave Oven'];
-  const hotItems = hotCategories.map(cat => products.find(p => p.category === cat)).filter(Boolean);
-
-  return (
+  const hotItems = hotCategories.map(cat => products.find(p => p.category === cat)).filter(Boolean);  return (
     <div>
-      {/* ── Compact Hero Carousel ── */}
-      <section className="hero-compact">
-        {heroSlides.map((slide, idx) => (
-          <div
-            key={idx}
-            className={`hero-slide-compact${idx === currentSlide ? ' active' : ''}`}
-            style={{ '--hero-bg': slide.color }}
-          >
-            <div className="hero-slide-inner">
-              <div className="hero-slide-text">
-                <div className="hero-offer-pill">🔥 {slide.offer}</div>
-                <h2>Bismillah Electronics</h2>
-                <p>{slide.label} — Best Prices in Karachi</p>
-                <div className="hero-slide-btns">
-                  <Link to="/products" className="btn btn-orange">Shop Now <ArrowRight size={15}/></Link>
-                  <a href="https://wa.me/923001234567" target="_blank" rel="noopener noreferrer" className="btn btn-white-outline">
-                    <MessageCircle size={15}/> WhatsApp
-                  </a>
+      {/* ─── Hero & Calculator Split Area ─── */}
+      <section className="hero-split-section">
+        <div className="hero-split-container">
+          
+          {/* Left: Compact Hero Carousel */}
+          <div className="hero-carousel-half">
+            {heroSlides.map((slide, idx) => (
+              <div
+                key={idx}
+                className={`hero-slide-compact${idx === currentSlide ? ' active' : ''}`}
+                style={{ '--hero-bg': slide.color }}
+              >
+                <div className="hero-slide-inner">
+                  <div className="hero-slide-text">
+                    <div className="hero-offer-pill">🔥 {slide.offer}</div>
+                    <h2>Bismillah Electronics</h2>
+                    <p>{slide.label} — Best Prices in Karachi</p>
+                    <div className="hero-slide-btns">
+                      <Link to="/products" className="btn btn-orange">Shop Now <ArrowRight size={15}/></Link>
+                      <a href="https://wa.me/923001234567" target="_blank" rel="noopener noreferrer" className="btn btn-white-outline">
+                        <MessageCircle size={15}/> WhatsApp
+                      </a>
+                    </div>
+                  </div>
+                  <div className="hero-slide-img">
+                    <img src={slide.image} alt={slide.label} />
+                  </div>
                 </div>
               </div>
-              <div className="hero-slide-img">
-                <img src={slide.image} alt={slide.label} />
+            ))}
+            {/* Dots */}
+            <div className="hero-dots">
+              {heroSlides.map((_, i) => (
+                <button
+                  key={i}
+                  className={`hero-dot${i === currentSlide ? ' active' : ''}`}
+                  onClick={() => setCurrentSlide(i)}
+                />
+              ))}
+            </div>
+            {/* Arrows */}
+            <button className="hero-arrow left" onClick={() => setCurrentSlide(p => (p - 1 + heroSlides.length) % heroSlides.length)}>
+              <ChevronLeft size={22}/>
+            </button>
+            <button className="hero-arrow right" onClick={() => setCurrentSlide(p => (p + 1) % heroSlides.length)}>
+              <ChevronRight size={22}/>
+            </button>
+          </div>
+
+          {/* Right: Quick Inverter Savings Calculator */}
+          <div className="hero-calc-half">
+            <div className="hero-calc-card">
+              <div className="hero-calc-header">
+                <h3>⚡ AC Inverter Savings</h3>
+                <p>Calculate your monthly bill savings</p>
+              </div>
+              <div className="hero-calc-body">
+                <div className="hero-calc-field">
+                  <label>AC Size (Tonnage)</label>
+                  <div className="tonnage-buttons">
+                    {['1.0', '1.5', '2.0'].map(size => (
+                      <button
+                        key={size}
+                        type="button"
+                        className={`ton-btn${acSize === size ? ' active' : ''}`}
+                        onClick={() => setAcSize(size)}
+                      >
+                        {size} Ton
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="hero-calc-field">
+                  <div className="field-row">
+                    <label>Daily Usage: <strong>{dailyHours} hrs/day</strong></label>
+                  </div>
+                  <input
+                    type="range"
+                    min="2"
+                    max="16"
+                    value={dailyHours}
+                    onChange={e => setDailyHours(Number(e.target.value))}
+                    className="calc-slider"
+                  />
+                </div>
+
+                <div className="hero-calc-field">
+                  <div className="field-row">
+                    <label>Unit Rate: <strong>Rs. {unitRate}/kWh</strong></label>
+                  </div>
+                  <input
+                    type="range"
+                    min="30"
+                    max="80"
+                    value={unitRate}
+                    onChange={e => setUnitRate(Number(e.target.value))}
+                    className="calc-slider"
+                  />
+                </div>
+
+                <div className="hero-calc-result">
+                  <div className="result-label">Monthly Savings 💰</div>
+                  <div className="result-value">Rs. {saving.toLocaleString()}</div>
+                </div>
               </div>
             </div>
           </div>
-        ))}
-        {/* Dots */}
-        <div className="hero-dots">
-          {heroSlides.map((_, i) => (
-            <button
-              key={i}
-              className={`hero-dot${i === currentSlide ? ' active' : ''}`}
-              onClick={() => setCurrentSlide(i)}
-            />
-          ))}
+
         </div>
-        {/* Arrows */}
-        <button className="hero-arrow left" onClick={() => setCurrentSlide(p => (p - 1 + heroSlides.length) % heroSlides.length)}>
-          <ChevronLeft size={22}/>
-        </button>
-        <button className="hero-arrow right" onClick={() => setCurrentSlide(p => (p + 1) % heroSlides.length)}>
-          <ChevronRight size={22}/>
-        </button>
       </section>
 
-      {/* ── Flash Deals Horizontal Scroll Strip ── */}
+      {/* ── Hot Deals Section ── */}
       {hotItems.length > 0 && (
-        <section className="flash-strip">
-          <div className="flash-strip-inner">
-            <div className="flash-strip-header">
-              <h3>🔥 Flash Deals / Hot Items</h3>
-              <Link to="/products">View All Deals</Link>
+        <section className="deals-section">
+          <div className="container">
+            <div className="deals-header">
+              <div className="deals-header-left">
+                <span className="deals-fire">🔥</span>
+                <div>
+                  <h2>Hot Deals</h2>
+                  <p>Limited time offers on top appliances</p>
+                </div>
+              </div>
+              <Link to="/products" className="deals-view-all">
+                View All <ArrowRight size={14}/>
+              </Link>
             </div>
-            <div className="flash-scroll">
-              {hotItems.map(p => {
+            <div className="deals-grid">
+              {hotItems.map((p, idx) => {
                 const price = p.discountPrice || p.price;
                 const pct = p.discountPrice ? Math.round((1 - p.discountPrice / p.price) * 100) : 0;
+                const colors = ['#0f2557', '#7c1c1c', '#0d5c2f', '#4a1f7a'];
                 return (
-                  <div key={p.id} className="flash-item" onClick={() => navigate('/products')}>
-                    {pct > 0 && <span className="flash-pct-badge">{pct}% OFF</span>}
-                    <div className="flash-img">
+                  <div key={p.id} className="deal-card" style={{ '--deal-accent': colors[idx % colors.length] }}>
+                    <div className="deal-card-visual">
+                      {pct > 0 && (
+                        <div className="deal-discount-ribbon">
+                          <span>{pct}%</span>
+                          <small>OFF</small>
+                        </div>
+                      )}
                       <img src={p.image} alt={p.name} />
                     </div>
-                    <div className="flash-info">
-                      <div className="flash-brand">{p.brand}</div>
-                      <div className="flash-name">{p.name}</div>
-                      <div className="flash-prices">
-                        <span className="flash-now">Rs. {price.toLocaleString()}</span>
-                        {p.discountPrice && <span className="flash-was">Rs. {p.price.toLocaleString()}</span>}
+                    <div className="deal-card-body">
+                      <span className="deal-brand-pill">{p.brand}</span>
+                      <h4 className="deal-title">{p.name}</h4>
+                      <div className="deal-price-block">
+                        <span className="deal-price-main">Rs. {price.toLocaleString()}</span>
+                        {p.discountPrice && <span className="deal-price-old">Rs. {p.price.toLocaleString()}</span>}
+                      </div>
+                      <div className="deal-actions">
+                        <button
+                          className="deal-btn deal-btn-cart"
+                          onClick={(e) => { e.stopPropagation(); handleAddToCart(p); }}
+                        >
+                          {addedProductId === p.id ? '✓ Added' : <><ShoppingCart size={14}/> Add to Cart</>}
+                        </button>
+                        <a
+                          href={`https://wa.me/923001234567?text=I want to order: ${encodeURIComponent(p.name)} — Rs.${price.toLocaleString()}`}
+                          target="_blank" rel="noopener noreferrer"
+                          className="deal-btn deal-btn-wa"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <MessageCircle size={14}/> Order
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -233,50 +328,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Inverter Savings Calculator ── */}
-      <section className="calc-section" id="calculator">
-        <div className="container">
-          <div className="section-title">
-            <h2>⚡ Inverter Savings Calculator</h2>
-            <div className="title-line"></div>
-            <p>See how much you save monthly by switching to a DC Inverter AC</p>
-          </div>
-          <div className="calc-box">
-            <div className="calc-inputs">
-              <div className="calc-field">
-                <label>AC Tonnage</label>
-                <select value={acSize} onChange={e => setAcSize(e.target.value)}>
-                  <option value="1.0">1 Ton</option>
-                  <option value="1.5">1.5 Ton</option>
-                  <option value="2.0">2 Ton</option>
-                </select>
-              </div>
-              <div className="calc-field">
-                <div className="calc-range-val">Daily Usage: {dailyHours} hrs/day</div>
-                <input type="range" min="2" max="16" value={dailyHours} onChange={e => setDailyHours(Number(e.target.value))} />
-              </div>
-              <div className="calc-field">
-                <div className="calc-range-val">Unit Rate: Rs. {unitRate}/kWh</div>
-                <input type="range" min="30" max="80" value={unitRate} onChange={e => setUnitRate(Number(e.target.value))} />
-              </div>
-            </div>
-            <div className="calc-results">
-              <div className="result-tile">
-                <div className="r-label">Normal AC Bill</div>
-                <div className="r-value">Rs. {nonBill.toLocaleString()}</div>
-              </div>
-              <div className="result-tile">
-                <div className="r-label">Inverter AC Bill</div>
-                <div className="r-value">Rs. {invBill.toLocaleString()}</div>
-              </div>
-              <div className="result-tile is-saving">
-                <div className="r-label">Monthly Savings 💰</div>
-                <div className="r-value">Rs. {saving.toLocaleString()}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+
 
       {/* ── Why BisElec ── */}
       <section className="why-section">
