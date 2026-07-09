@@ -260,12 +260,13 @@ export default function Home() {
           </div>
           <div className="cats-grid">
             {categories.map(c => (
-              <Link key={c.cat} to={`/products?category=${encodeURIComponent(c.cat)}`} className="cat-card">
-                <div className="cat-img-wrap">
-                  <img src={c.img} alt={c.name} />
+              <Link key={c.cat} to={`/products?category=${encodeURIComponent(c.cat)}`} className="cat-card-full">
+                <img src={c.img} alt={c.name} className="cat-bg-img" />
+                <div className="cat-overlay-content">
+                  <span className="cat-badge-mini">Explore</span>
+                  <h3>{c.name}</h3>
+                  <p>{c.desc}</p>
                 </div>
-                <h3>{c.name}</h3>
-                <p>{c.desc}</p>
               </Link>
             ))}
           </div>
