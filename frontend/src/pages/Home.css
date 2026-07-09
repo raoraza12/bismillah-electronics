@@ -751,7 +751,16 @@
 .prod-price-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
 .prod-price-now { font-size: 15px; font-weight: 800; color: #0f2557; }
 .prod-price-was { font-size: 11px; color: #94a3b8; text-decoration: line-through; }
-.prod-action-row { display: flex; gap: 6px; }
+.prod-action-row {
+  display: flex;
+  gap: 6px;
+}
+.prod-action-row .btn {
+  flex: 1;
+  justify-content: center;
+  padding: 8px 10px;
+  font-size: 12px;
+}
 
 /* ── Buttons ── */
 .btn {
@@ -889,6 +898,23 @@
   .deal-card-visual { height: 150px; }
   .cat-card-full { height: 160px; }
   .cat-overlay-content h3 { font-size: 13.5px; }
+  
+  /* Product Cards Mobile Stack Buttons */
+  .prod-action-row {
+    flex-direction: column;
+    gap: 6px;
+  }
+  .prod-action-row .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 7px 10px;
+  }
+  .prod-price-now {
+    font-size: 13.5px;
+  }
+  .prod-price-was {
+    font-size: 10px;
+  }
 }
 @media (max-width: 480px) {
   .hero-carousel-half {
@@ -910,6 +936,20 @@
   .deal-card-visual { height: 180px; }
   .cat-card-full { height: 145px; }
   .cat-overlay-content p { display: none; }
+  
+  /* Extremely small viewports padding fix */
+  .prod-info-box {
+    padding: 10px;
+  }
+  .prod-name-text {
+    font-size: 11.5px;
+    height: 32px;
+    margin-bottom: 6px;
+  }
+  .prod-action-row .btn {
+    font-size: 10px;
+    padding: 6px 8px;
+  }
 }
 
 
