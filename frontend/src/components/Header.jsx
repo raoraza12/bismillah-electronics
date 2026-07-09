@@ -197,7 +197,7 @@ export default function Header() {
                   <li><Link to="/products?category=Air%20Conditioner">❄️ Air Conditioners</Link></li>
                   <li><Link to="/products?category=LED%20TV">📺 LED TVs</Link></li>
                   <li><Link to="/products?category=Refrigerator">🧊 Refrigerators</Link></li>
-                  <li><Link to="/products?category=Washing%20Machine">🫧 Washing Machines</Link></li>
+                  <li><Link to="/products?category=Washing%20Machine">🧺 Washing Machines</Link></li>
                   <li><Link to="/products?category=Kitchen%20Appliances">🍳 Kitchen Appliances</Link></li>
                   <li><Link to="/products?category=Microwave%20Oven">🍲 Microwave Ovens</Link></li>
                   <li><Link to="/products?category=Water%20Dispenser">🚰 Water Dispensers</Link></li>
