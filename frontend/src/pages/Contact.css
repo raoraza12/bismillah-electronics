@@ -237,13 +237,23 @@
 
 @media (max-width: 600px) {
   .contact-form-panel {
-    padding: 24px;
+    padding: 24px 16px;
+  }
+  .contact-info-panel {
+    padding: 24px 16px;
   }
   .form-grid {
     grid-template-columns: 1fr;
     gap: 12px;
   }
   .contact-page-container .page-header h1 {
-    font-size: 26px;
+    font-size: 22px;
+  }
+  .contact-page-container .page-header p {
+    font-size: 13px;
+  }
+  .btn-submit {
+    align-self: stretch;
+    text-align: center;
   }
 }

@@ -141,7 +141,7 @@ export default function Header() {
       .map(i => `• ${i.name} x${i.quantity} = Rs.${((i.discountPrice || i.price) * i.quantity).toLocaleString()}`)
       .join('\n');
     const msg = `Salam BisElec! Order karna chahta hoon:\n\n${lines}\n\nKul Total: Rs.${cartTotal.toLocaleString()}\n\nPlease confirm kardein. Shukriya!`;
-    window.open(`https://wa.me/923001234567?text=${encodeURIComponent(msg)}`, '_blank');
+    window.open(`https://wa.me/923002347457?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
   return (
@@ -161,7 +161,7 @@ export default function Header() {
             '⭐ Welcome to Bismillah Electronics.',
             '✅ Authorized Dealer of Kenwood.',
             '💰 Up to 15% Off on Inverter ACs.',
-            '📞 WhatsApp Order: +92 300 1234567.',
+            '📞 WhatsApp Order: 0300-2347457.',
           ].map((t, i) => (
             <span key={i} className="ticker-item">{t}</span>
           ))}
@@ -257,7 +257,7 @@ export default function Header() {
 
             {/* WhatsApp Order Button */}
             <a
-              href="https://wa.me/923001234567?text=Hello%20Bismillah%20Electronics!%20I%20need%20assistance."
+              href="https://wa.me/923002347457?text=Hello%20Bismillah%20Electronics!%20I%20need%20assistance."
               target="_blank"
               rel="noopener noreferrer"
               className="hdr-wa-btn-compact"

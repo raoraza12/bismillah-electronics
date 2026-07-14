@@ -204,7 +204,7 @@ export default function Products() {
                               <ShoppingCart size={14}/> Add to Cart
                             </button>
                             <a
-                              href={`https://wa.me/923001234567?text=I want to order: ${encodeURIComponent(p.name)} — Rs.${price.toLocaleString()}`}
+                              href={`https://wa.me/923002347457?text=I want to order: ${encodeURIComponent(p.name)} — Rs.${price.toLocaleString()}`}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="wa-btn"
@@ -260,7 +260,7 @@ export default function Products() {
                     <ShoppingCart size={16}/> Add to Cart
                   </button>
                   <a
-                    href={`https://wa.me/923001234567?text=I want to order: ${encodeURIComponent(selectedProduct.name)}`}
+                    href={`https://wa.me/923002347457?text=I want to order: ${encodeURIComponent(selectedProduct.name)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="m-wa"

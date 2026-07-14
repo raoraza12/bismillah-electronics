@@ -72,7 +72,9 @@ export default function Home() {
 
   // Hot items by category
   const hotCategories = ['Air Conditioner', 'LED TV', 'Refrigerator', 'Microwave Oven'];
-  const hotItems = hotCategories.map(cat => products.find(p => p.category === cat)).filter(Boolean);  return (
+  const hotItems = hotCategories.map(cat => products.find(p => p.category === cat)).filter(Boolean);
+
+  return (
     <div>
       {/* ─── Hero & Calculator Split Area ─── */}
       <section className="hero-split-section">
@@ -93,7 +95,7 @@ export default function Home() {
                     <p>{slide.label} — Best Prices in Karachi</p>
                     <div className="hero-slide-btns">
                       <Link to="/products" className="btn btn-orange">Shop Now <ArrowRight size={15}/></Link>
-                      <a href="https://wa.me/923001234567" target="_blank" rel="noopener noreferrer" className="btn btn-white-outline">
+                      <a href="https://wa.me/923002347457" target="_blank" rel="noopener noreferrer" className="btn btn-white-outline">
                         <MessageCircle size={15}/> WhatsApp
                       </a>
                     </div>
@@ -233,7 +235,7 @@ export default function Home() {
                           {addedProductId === p.id ? '✓ Added' : <><ShoppingCart size={14}/> Add to Cart</>}
                         </button>
                         <a
-                          href={`https://wa.me/923001234567?text=I want to order: ${encodeURIComponent(p.name)} — Rs.${price.toLocaleString()}`}
+                          href={`https://wa.me/923002347457?text=I want to order: ${encodeURIComponent(p.name)} — Rs.${price.toLocaleString()}`}
                           target="_blank" rel="noopener noreferrer"
                           className="deal-btn deal-btn-wa"
                           onClick={(e) => e.stopPropagation()}
@@ -310,7 +312,7 @@ export default function Home() {
                           {addedProductId === p.id ? '✓ Added' : <><ShoppingCart size={13}/> Add</>}
                         </button>
                         <a
-                          href={`https://wa.me/923001234567?text=I want to order: ${encodeURIComponent(p.name)} — Rs.${price.toLocaleString()}`}
+                          href={`https://wa.me/923002347457?text=I want to order: ${encodeURIComponent(p.name)} — Rs.${price.toLocaleString()}`}
                           target="_blank" rel="noopener noreferrer"
                           className="btn btn-green btn-sm"
                         >

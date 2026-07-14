@@ -11,9 +11,9 @@ export default function Footer() {
           <div className="footer-grid">
             {/* Brand */}
             <div className="footer-brand">
-              <div className="footer-brand-name">⚡ BisElec</div>
+              <div className="footer-brand-name">⚡ Bismillah Electronics</div>
               <p>Karachi's most trusted electronics retailer since 2010. Authorized dealer for Haier, Gree, Dawlance, and Kenwood with genuine products, free delivery, and expert after-sales support.</p>
-              <div className="footer-contact-item"><Phone size={14}/> +92 300 1234567</div>
+              <div className="footer-contact-item"><Phone size={14}/> 0300-2347457</div>
               <div className="footer-contact-item"><MapPin size={14}/> Saddar & DHA Phase 6, Karachi</div>
             </div>
 
@@ -35,7 +35,7 @@ export default function Footer() {
                 <li><Link to="/products?category=Air Conditioner">❄️ Air Conditioners</Link></li>
                 <li><Link to="/products?category=LED TV">📺 LED TVs</Link></li>
                 <li><Link to="/products?category=Refrigerator">🧊 Refrigerators</Link></li>
-                <li><Link to="/products?category=Washing Machine">🫧 Washing Machines</Link></li>
+                <li><Link to="/products?category=Washing Machine">🧺 Washing Machines</Link></li>
               </ul>
             </div>
 
@@ -43,9 +43,9 @@ export default function Footer() {
             <div className="footer-col">
               <h4>Get in Touch</h4>
               <ul>
-                <li><a href="tel:+923001234567"><Phone size={13}/> +92 300 1234567</a></li>
+                <li><a href="tel:+923002347457"><Phone size={13}/> 0300-2347457</a></li>
                 <li>
-                  <a href="https://wa.me/923001234567" target="_blank" rel="noopener noreferrer">
+                  <a href="https://wa.me/923002347457" target="_blank" rel="noopener noreferrer">
                     <MessageCircle size={13}/> WhatsApp Order
                   </a>
                 </li>
@@ -58,7 +58,7 @@ export default function Footer() {
       </div>
       <div className="footer-bottom">
         <div className="container">
-          <p>&copy; 2025 BisElec Electronics. All rights reserved. | Karachi, Pakistan 🇵🇰</p>
+          <p>&copy; 2025 Bismillah Electronics. All rights reserved. | Karachi, Pakistan 🇵🇰</p>
         </div>
       </div>
     </footer>

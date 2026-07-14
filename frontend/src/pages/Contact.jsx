@@ -38,7 +38,7 @@ function Contact() {
               <div className="channel-icon"><Phone size={20} /></div>
               <div className="channel-details">
                 <h4>Call Support</h4>
-                <a href="tel:+923001234567">+92 300 1234567</a>
+                <a href="tel:+923002347457">0300-2347457</a>
                 <span>Available Mon - Sat (11am - 9pm)</span>
               </div>
             </div>
@@ -57,7 +57,7 @@ function Contact() {
               <div className="channel-details">
                 <h4>WhatsApp Sales Desk</h4>
                 <a 
-                  href="https://wa.me/923001234567?text=Hi%20Bis%20Elec,%20I%20have%20a%20sales%20query."
+                  href="https://wa.me/923002347457?text=Hi%20Bis%20Elec,%20I%20have%20a%20sales%20query."
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="whatsapp-link-text"
